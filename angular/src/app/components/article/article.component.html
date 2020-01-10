@@ -1,0 +1,33 @@
+<app-slider [nombre]="'Articulo'" [size]="'small'"></app-slider>
+
+<div class="center" *ngIf="article">
+    <section id="content">
+
+        <div id="articles">
+
+            <article class="article-item article-detail">
+                <div class="img-wrap">
+                    <img [src]="article['image'] ? url +'/get-image/'+ article['image'] : './assets/images/default.jpg'" [alt]="article['title']" />
+                </div>
+
+                <h1 class="subheader">{{ article['title'] }}</h1>
+                <span class="date">
+              {{ article['date'] | amLocale: 'es' | amTimeAgo }}
+          </span>
+
+                <p>
+                    {{ article['content'] }}
+                </p>
+
+                <a href="" class="btn btn-warning"> Editar </a>
+                <a href="" class="btn btn-danger"> Borrar </a>
+
+                <div class="clearfix"></div>
+            </article>
+
+        </div>
+
+    </section>
+    <!-- para hacer barras laterales -->
+    <app-sidebar></app-sidebar>
+</div>

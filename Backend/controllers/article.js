@@ -66,7 +66,7 @@ const controller = {
         let query = Article.find({});
         let last = req.params.last;
         if (last || last != undefined) {
-            query.limit(5)
+            query.limit(1);
         }
 
         query.sort(`-_id`).exec((err, articles) => {
@@ -81,7 +81,7 @@ const controller = {
                 status: 'success',
                 articles
             });
-        })
+        });
     },
 
     getArticle: (req, res) => {
