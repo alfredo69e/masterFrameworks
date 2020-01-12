@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
+    this.articles = [];
     this.articleService.getArticles(true)
     .subscribe((res) => {
       if (res.articles) {

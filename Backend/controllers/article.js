@@ -29,7 +29,7 @@ const controller = {
             let article = new Article({
                 title: params.title,
                 content: params.content,
-                image: null
+                image: params.image ? params.image : null
             });
 
             article.save((err, articleStore) => {
@@ -66,7 +66,7 @@ const controller = {
         let query = Article.find({});
         let last = req.params.last;
         if (last || last != undefined) {
-            query.limit(1);
+            query.limit(5);
         }
 
         query.sort(`-_id`).exec((err, articles) => {
@@ -180,7 +180,7 @@ const controller = {
 
     upload: (req, res) => {
 
-        let file_name = 'Imagen no subida...';
+        var file_name = 'Imagen no subida...';
 
         if (!req.files) {
             return res.status(404).send({
@@ -188,15 +188,15 @@ const controller = {
                 message: file_name
             });
         }
+        console.log(req.files);
 
-        let file_path = req.files.null;
-        req.files.file0 = file_path
-        let file_split = req.files.file0.path.split('/');
+        var file_path = req.files.file0;
+        var file_split = req.files.file0.path.split('/');
 
         file_name = file_split[2];
 
-        let ext = file_name.split('.');
-        let file_ext = ext[1];
+        var ext = file_name.split('.');
+        var file_ext = ext[1];
 
         if (file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'gif') {
             fs.unlink(file_path, (err) => {
@@ -216,23 +216,32 @@ const controller = {
 
             let id = req.params.id;
 
-            Article.findByIdAndUpdate({ _id: id }, { image: file_name }, { new: true }, (err, articleUpdate) => {
-                if (err || !articleUpdate) {
+            if (id) {
+                Article.findByIdAndUpdate({ _id: id }, { image: file_name }, { new: true }, (err, articleUpdate) => {
+                    if (err || !articleUpdate) {
 
-                    fs.unlink(file_path, (err) => {
-                        return res.status(404).send({
-                            status: 'err',
-                            message: `El articulo no se ha actualizado ${err ? err : ''}`
+                        fs.unlink(file_path, (err) => {
+                            return res.status(404).send({
+                                status: 'err',
+                                message: `El articulo no se ha actualizado ${err ? err : ''}`
+                            });
                         });
-                    });
-                }
+                    }
 
+                    return res.status(200).send({
+                        status: 'success',
+                        message: `Articulo Actualizado`,
+                        article: articleUpdate
+                    });
+                });
+            } else {
                 return res.status(200).send({
                     status: 'success',
-                    message: `Articulo Actualizado`,
-                    article: articleUpdate
+                    image: file_name
                 });
-            });
+            }
+
+
 
         }
     },

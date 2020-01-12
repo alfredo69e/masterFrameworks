@@ -17,6 +17,7 @@ export class BlogComponent implements OnInit {
   constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
+    this.articles = [];
     this.articleService.getArticles()
     .subscribe((res) => {
       if (res.articles) {

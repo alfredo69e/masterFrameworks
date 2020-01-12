@@ -10,8 +10,8 @@
 
         <h2>{{ item['title'] }}</h2>
         <span class="date">
-    {{item['date'] | amLocale: 'es' | amTimeAgo}}
-  </span>
+      {{item['date'] | amLocale: 'es' | amTimeAgo}}
+    </span>
 
         <a [routerLink]="['/blog/article', item['_id']]">Leer mas</a>
 

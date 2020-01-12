@@ -10,6 +10,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { ArticleComponent } from './components/article/article.component';
 import { SearchComponent } from './components/search/search.component';
 import { NewArticleComponent } from './components/new-article/new-article.component';
+import { ArticleEditComponent } from './components/article-edit/article-edit.component';
 
 const router: Routes =[
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ const router: Routes =[
   { path: 'blog/article/:id', component: ArticleComponent },
   { path: 'search/:search', component: SearchComponent },
   { path: 'new-article', component: NewArticleComponent },
+  { path: 'article-edit/:id', component: ArticleEditComponent },
   { path: '**', component: ErrorComponent }
 ];
 

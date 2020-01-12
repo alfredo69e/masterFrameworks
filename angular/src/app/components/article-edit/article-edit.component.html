@@ -1,29 +1,33 @@
 <div class="center">
     <section id="content">
 
-        <h2 class="subheader">Crear un Nuevo Articulo</h2>
+        <h2 class="subheader">Edita el Articulo</h2>
 
-        <form action="" class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit(article)">
+        <form class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit(article['_id'], article)" *ngIf="article">
             <div class="form-group">
                 <label for="nombre">Titulo</label>
                 <input type="text" name="nombre" #title="ngModel" [(ngModel)]="article['title']" required />
                 <span *ngIf="!title.valid && title.touched">
-                El Titulo no es valido
-              </span>
+              El Titulo no es valido
+            </span>
             </div>
 
             <div class="form-group">
                 <label for="bio">Contenido</label>
                 <textarea name="bio" #content="ngModel" [(ngModel)]="article['content']" required> </textarea>
                 <span *ngIf="!content.valid && content.touched">
-              El Contemido no es valido
-            </span>
+            El Contemido no es valido
+          </span>
             </div>
 
             <div class="form-group">
+                <div class="image-thumb">
+                    <img [src]="article['image'] ? url +'/get-image/'+ article['image'] : './assets/images/default.jpg'" [alt]="article['title']" />
+                </div>
                 <angular-file-uploader [config]="afuConfig" (ApiResponse)="imageUpload($event)">
                 </angular-file-uploader>
             </div>
+
             <div class="clearfix"></div>
             <input type="submit" value="Guardar" [disabled]="articleForm.invalid" [ngClass]="[articleForm.invalid ? 'btn btn-disabled' : 'btn btn-success']" />
         </form>

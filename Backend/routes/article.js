@@ -12,7 +12,7 @@ router.get('/articles/:last?', articleCtrls.getArticles);
 router.get('/article/:id', articleCtrls.getArticle);
 router.put('/article/:id', articleCtrls.update);
 router.delete('/article/:id', articleCtrls.delete);
-router.post('/upload-image/:id', md_upload, articleCtrls.upload);
+router.post('/upload-image/:id?', md_upload, articleCtrls.upload);
 router.get('/get-image/:image', articleCtrls.getImage);
 router.get('/search/:search', articleCtrls.search);
 
